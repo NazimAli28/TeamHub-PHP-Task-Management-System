@@ -1,0 +1,360 @@
+/* Employee Dashboard Stylesheet - Enhanced for better UX and responsiveness */
+:root {
+    --primary-color: #f1592a;
+    --primary-hover: #f47b4e;
+    --secondary-color: #007bff;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --success-color: #f1592a;
+    --info-color: #17a2b8;
+    --light-bg: #f8f9fa;
+    --dark-bg: #343a40;
+    --border-color: #dee2e6;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+body.dark {
+    --light-bg: #1e1e1e;
+    --dark-bg: #2b2b2b;
+    --border-color: #495057;
+    --text-primary: #f0f0f0;
+    --text-secondary: #adb5bd;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: var(--light-bg);
+    line-height: 1.6;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-x: auto;
+    background: var(--light-bg);
+}
+
+/* Header Styles */
+.main-content h2 {
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.main-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.main-content h4 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    flex: 1 1;
+    /* Allows it to shrink/grow with a minimum size */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.alert {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid var(--warning-color);
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.alert:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-hover);
+}
+
+canvas {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    /* Full width inside container */
+}
+
+.chart-row {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping to ensure charts stay on same line */
+    gap: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+}
+
+.chart-container {
+    flex: 1;
+    min-width: 300px; /* Minimum width for each chart container */
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.chart-container:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .chart-row {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+
+    .main-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .stats-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stat-box {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .chart-container {
+        padding: 20px;
+    }
+
+    /* Make charts single column on mobile */
+    .chart-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .chart-container {
+        min-width: auto;
+        width: 100%;
+    }
+
+    /* Mobile responsive dashboard layout */
+    .dashboard {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        margin-top: 4em;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .main-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .stat-box {
+        padding: 10px;
+    }
+
+    .chart-container {
+        padding: 15px;
+    }
+
+    canvas {
+        padding: 10px;
+        max-height: 250px;
+    }
+
+    /* Ensure charts are single column on very small screens */
+    .chart-row {
+        gap: 10px;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Dark mode support */
+body.dark .main-content {
+    background-color: var(--dark-bg);
+}
+
+body.dark .stat-box,
+body.dark .chart-container {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark canvas {
+    background-color: var(--dark-bg);
+}
+
+body.dark .alert {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--warning-color);
+    border-left-color: var(--warning-color);
+}
+
+/* Fix stat-box background and text colors for dark mode */
+body.dark .stat-box {
+    background-color: #333333;
+    color: #f0f0f0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Fix alert box text color for better contrast */
+body.dark .alert {
+    background-color: #4a3e00;
+    color: #ffec99;
+    border-left-color: #ffc107;
+}
+
+/* Fix chart container text and background */
+body.dark .chart-container {
+    background-color: #333333;
+    color: #f0f0f0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Fix canvas background for charts */
+body.dark canvas {
+    background-color: #3a3a3a !important;
+}
+
+/* Fix headings color in dark mode */
+body.dark .main-content h2,
+body.dark .main-content h4 {
+    color: #f0f0f0;
+}
+
+/* Fix chart row background */
+body.dark .chart-row {
+    background-color: transparent;
+}
+
+/* Chart color improvements */
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.chart-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Animation for stats */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-box {
+    animation: fadeInUp 0.6s ease;
+}
+
+.stat-box:nth-child(1) { animation-delay: 0.1s; }
+.stat-box:nth-child(2) { animation-delay: 0.2s; }
+.stat-box:nth-child(3) { animation-delay: 0.3s; }
+.stat-box:nth-child(4) { animation-delay: 0.4s; }
+.stat-box:nth-child(5) { animation-delay: 0.5s; }
+
+/* Grid layout improvements */
+.grid-section {
+    margin-bottom: 50px;
+}
+
+.grid-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Chart tooltip improvements */
+.chartjs-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

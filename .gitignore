@@ -1,0 +1,16 @@
+# Local DB credentials override (copy config/db.local.example.php)
+config/db.local.php
+
+# Runtime logs (may contain task/client data)
+error_log.txt
+*.log
+
+# User-uploaded profile pictures
+assets/images/profile_*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+

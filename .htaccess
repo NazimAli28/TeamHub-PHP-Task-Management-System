@@ -1,0 +1,25 @@
+# Cache control for CSS files
+<FilesMatch "\.(css)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</FilesMatch>
+
+# Force browser to re-validate CSS files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 0 seconds"
+</IfModule>
+
+# Alternative cache busting for CSS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)\.css$ $1.css [L]
+</IfModule> 
+
+# Block web access to runtime logs
+<FilesMatch "\.(txt|log)$">
+    Require all denied
+</FilesMatch>
